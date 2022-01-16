@@ -15,7 +15,7 @@ class LessonRepository
 
     public function getAllLessonsByModule($id)
     {
-        return $this->entity->where('id', $id)->get();
+        return $this->entity->where('module_id', $id)->get();
     }
 
     public function getLesson($id)
