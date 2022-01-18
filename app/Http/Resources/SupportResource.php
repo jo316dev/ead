@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ReplySupport;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SupportResource extends JsonResource
@@ -15,10 +16,12 @@ class SupportResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'description' => $this->description,
             'status' => $this->statusOptions[$this->status],
             'aluno' => new UserResource($this->user),
-            'lesson' => new LessonResource($this->lesson),
+            'lesson_id' => new LessonResource($this->lesson),
+            'replies' => LessonResource::collection($this->replies),
         ];
     }
 }

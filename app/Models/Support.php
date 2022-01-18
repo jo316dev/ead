@@ -11,13 +11,13 @@ class Support extends Model
     use HasFactory, UuidTrait;
 
     public $incrementing = false;
-    protected $fillable =
-        ['status', 'description'],
+    protected $fillable = ['status', 'description', 'lesson_id'],
         $keyType = 'uuid';
+
     public $statusOptions = [
-        'P' => 'Pendente. Aguardando resposta',
-        'O' => 'Aguardando Aluno',
-        'C' => 'Finalizado'
+        'P' => 'Pendente, Aguardando Professor',
+        'A' => 'Aguardando Aluno',
+        'C' => 'Finalizado',
     ];
 
 
@@ -30,5 +30,10 @@ class Support extends Model
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(ReplySupport::class);
     }
 }

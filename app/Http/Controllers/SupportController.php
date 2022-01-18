@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReplySupport;
 use App\Http\Requests\StoreSupport;
 use App\Http\Resources\SupportResource;
 use App\Repositories\SupportRepository;
@@ -25,5 +26,11 @@ class SupportController extends Controller
     public function store(StoreSupport $request)
     {
         return new SupportResource($this->entity->createNewSupport($request->validated()));
+    }
+
+    public function reply($idSupport, StoreReplySupport $request)
+    {
+
+        return new SupportResource($this->entity->responseSupport($idSupport, $request->validated()));
     }
 }

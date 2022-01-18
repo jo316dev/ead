@@ -34,11 +34,28 @@ class SupportRepository
             })->get();
     }
 
-    public function createNewSupport(array $data)
+    public function createNewSupport(array $data): Support
     {
+
         return $this->getUserAuth()
             ->supports()
-            ->create($data);
+            ->create([
+                'lesson_id' => $data['lesson_id'],
+                'description' => $data['description'],
+                'status' => $data['status']
+            ]);
+    }
+
+    public function responseSupport(string $idSupport, array $data)
+    {
+
+
+        return ($this->getSupport($idSupport)
+            ->replies()
+            ->create([
+                'description' => $data['description'],
+                'user_id' => $this->getUserAuth()
+            ]));
     }
 
     private function getUserAuth(): User
@@ -46,5 +63,10 @@ class SupportRepository
         // return auth()->user
 
         return User::first();
+    }
+
+    private function getSupport(string $idSupport)
+    {
+        return ($this->entity->findOrFail($idSupport));
     }
 }
