@@ -25,7 +25,7 @@ class StoreReplySupport extends FormRequest
     {
         return [
 
-            'description' => 'required|min:5|max:10000',
+            'description' => ['required', 'min:5', 'max:10000'],
         ];
     }
 }

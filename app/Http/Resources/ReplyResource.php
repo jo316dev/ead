@@ -19,6 +19,7 @@ class ReplyResource extends JsonResource
             'resposta' => $this->description,
             'duvida' => new SupportResource($this->support),
             'professor' => new UserResource($this->user),
+            // 'replies' => LessonResource::collection($this->replies),
         ];
     }
 }

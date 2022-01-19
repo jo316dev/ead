@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/courses', [CourseController::class, 'index']);
+
 Route::get('/courses/{id}', [CourseController::class, 'show']);
 
 Route::get('/courses/{id}/module', [ModuleController::class, 'index']);
@@ -30,7 +31,7 @@ Route::post('/supports/{id}/replies', [SupportController::class, 'reply']);
 
 Route::get('/user', function () {
 
-    $users = Lesson::all();
+    $users = User::all();
 
     return response()->json($users);
 });

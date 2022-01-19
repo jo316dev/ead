@@ -49,13 +49,16 @@ class SupportRepository
     public function responseSupport(string $idSupport, array $data)
     {
 
+        $user = $this->getUserAuth();
 
-        return ($this->getSupport($idSupport)
+
+
+        return $this->getSupport($idSupport)
             ->replies()
             ->create([
                 'description' => $data['description'],
-                'user_id' => $this->getUserAuth()
-            ]));
+                'user_id' => $user->id
+            ]);
     }
 
     private function getUserAuth(): User
@@ -67,6 +70,6 @@ class SupportRepository
 
     private function getSupport(string $idSupport)
     {
-        return ($this->entity->findOrFail($idSupport));
+        return $this->entity->findOrFail($idSupport);
     }
 }
