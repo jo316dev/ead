@@ -25,8 +25,8 @@ class AuthRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'pasword' => 'required',
-            // 'device_name' => 'required'
+            'password' => 'required',
+            'device_name' => 'required'
         ];
     }
 }
