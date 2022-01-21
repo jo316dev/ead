@@ -4,6 +4,7 @@ use App\Http\Controllers\{
     CourseController,
     LessonController,
     ModuleController,
+    ReplySupportController,
     SupportController
 };
 use App\Models\Lesson;
@@ -22,11 +23,13 @@ Route::get('/lesson/{id}', [LessonController::class, 'show']);
 
 Route::get('/supports', [SupportController::class, 'index']);
 
+Route::get('/mysupports', [SupportController::class, 'mySupports']);
+
 // Add a question
 Route::post('/supports', [SupportController::class, 'store']);
 
 // Post a reply to support
-Route::post('/supports/{id}/replies', [SupportController::class, 'reply']);
+Route::post('replies', [ReplySupportController::class, 'createReply']);
 
 
 Route::get('/user', function () {

@@ -14,6 +14,8 @@ class ReplySupport extends Model
     public $incrementing = false;
     protected $fillable = ['description', 'user_id'], $keyType = 'uuid';
 
+    protected $touches = ['support'];
+
 
     public function user()
     {

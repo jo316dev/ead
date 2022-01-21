@@ -11,28 +11,29 @@ use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-    protected $entity;
+    protected $repository;
 
     public function __construct(SupportRepository $repository)
     {
-        $this->entity = $repository;
+        $this->repository = $repository;
     }
 
     public function index(Request $request)
     {
-        return SupportResource::collection($this->entity->getSupports($request->all()));
+        return SupportResource::collection($this->repository->getSupports($request->all()));
     }
 
 
     public function store(StoreSupport $request)
     {
-        return new SupportResource($this->entity->createNewSupport($request->validated()));
+        return new SupportResource($this->repository->createNewSupport($request->validated()));
     }
 
-    public function reply($idSupport, StoreReplySupport $request)
+    public function MySupports(Request $request)
     {
-        $reply = $this->entity->responseSupport($idSupport, $request->validated());
+        $supports = $this->repository->getSupports($request->all());
 
-        return new ReplyResource($reply);
+
+        return SupportResource::collection($supports);
     }
 }

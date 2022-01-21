@@ -4,9 +4,12 @@ namespace App\Repositories;
 
 use App\Models\Support;
 use App\Models\User;
+use App\Repositories\Traits\GetUserLogged;
 
 class SupportRepository
 {
+    use GetUserLogged;
+
     protected $entity;
 
     public function __construct(Support $model)
@@ -14,11 +17,17 @@ class SupportRepository
         $this->entity = $model;
     }
 
+    public function getMySupports(array $filters = [])
+    {
+        $filters['user'] = true;
+
+        return $this->getSupports($filters);
+    }
+
 
     public function getSupports(array $filters = [])
     {
-        return $this->getUserAuth()
-            ->supports()
+        return $this->entity
             ->where(function ($query) use ($filters) {
                 if (isset($filters['lesson'])) {
                     $query->where('lesson_id', $filters['lesson']);
@@ -31,13 +40,19 @@ class SupportRepository
                 if (isset($filters['description'])) {
                     $query->where('description', 'LIKE', "%{$filters['description']}%");
                 }
-            })->get();
+
+                if (isset($filters['user'])) {
+                    $user = $this->getUser();
+
+                    $query->where('user_id', $user->id);
+                }
+            })->orderBy('updated_at')->get();
     }
 
     public function createNewSupport(array $data): Support
     {
 
-        return $this->getUserAuth()
+        return $this->getUser()
             ->supports()
             ->create([
                 'lesson_id' => $data['lesson_id'],
@@ -46,12 +61,9 @@ class SupportRepository
             ]);
     }
 
-    public function responseSupport(string $idSupport, array $data)
+    public function responseSupport($idSupport, array $data)
     {
-
-        $user = $this->getUserAuth();
-
-
+        $user = $this->getUser();
 
         return $this->getSupport($idSupport)
             ->replies()
@@ -61,14 +73,8 @@ class SupportRepository
             ]);
     }
 
-    private function getUserAuth(): User
-    {
-        // return auth()->user
 
-        return User::first();
-    }
-
-    private function getSupport(string $idSupport)
+    private function getSupport($idSupport)
     {
         return $this->entity->findOrFail($idSupport);
     }

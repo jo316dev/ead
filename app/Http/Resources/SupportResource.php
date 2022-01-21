@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\ReplySupport;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SupportResource extends JsonResource
@@ -21,6 +22,7 @@ class SupportResource extends JsonResource
             'status' => $this->statusOptions[$this->status],
             'aluno' => new UserResource($this->user),
             'lesson_id' => new LessonResource($this->lesson),
+            'data_reposta' => Carbon::make($this->updated_at)->format('H:i:s - d/m/Y')
         ];
     }
 }
