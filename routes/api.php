@@ -7,10 +7,16 @@ use App\Http\Controllers\{
     ReplySupportController,
     SupportController
 };
+use App\Http\Controllers\Auth\AuthController;
 use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
+
+
+Route::post('/auth', [AuthController::class, 'auth']);
 
 Route::get('/courses', [CourseController::class, 'index']);
 
@@ -30,6 +36,8 @@ Route::post('/supports', [SupportController::class, 'store']);
 
 // Post a reply to support
 Route::post('replies', [ReplySupportController::class, 'createReply']);
+
+
 
 
 Route::get('/user', function () {
