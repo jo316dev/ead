@@ -8,8 +8,6 @@ trait GetUserLogged
 {
     private function getUser(): User
     {
-        // return auth()->user();
-
-        return User::first();
+        return auth()->user();
     }
 }

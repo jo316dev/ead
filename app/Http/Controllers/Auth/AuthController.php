@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,5 +30,21 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token
         ]);
+    }
+
+
+    public function logout()
+    {
+        auth('sanctum')->user()->tokens()->delete();
+
+        return response()->json(['message' => 'Usuario deslogado']);
+    }
+
+
+    public function myProfile()
+    {
+        $profile = auth()->user();
+
+        return new UserResource($profile);
     }
 }
