@@ -5,9 +5,12 @@ use App\Http\Controllers\{
     LessonController,
     ModuleController,
     ReplySupportController,
-    SupportController
+    SupportController,
 };
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\{
+    AuthController,
+    ResetPasswordController
+};
 use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,6 +21,17 @@ use Illuminate\Support\Facades\Route;
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/auth', [AuthController::class, 'auth']);
 Route::get('/myprofile', [AuthController::class, 'myProfile'])->middleware('auth:sanctum');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('auth:sanctum');
+
+
+
+/**
+ * Rotas para reset de senha
+ */
+Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->middleware('guest');
+
+
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
