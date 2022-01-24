@@ -30,7 +30,7 @@ class LessonController extends Controller
     public function viewed(StoreView $request)
     {
 
-        $this->repository->makrLessonViewed($request->lesson);
+        $this->repository->markLessonViewed($request->lesson);
 
         return response()->json(['success' => true]);
     }
