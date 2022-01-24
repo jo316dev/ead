@@ -46,6 +46,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/modules/{id}/lessons', [LessonController::class, 'index']);
     Route::get('/lesson/{id}', [LessonController::class, 'show']);
 
+    Route::post('/lessons', [LessonController::class, 'viewed']);
+
     Route::get('/supports', [SupportController::class, 'index']);
 
     Route::get('/mysupports', [SupportController::class, 'mySupports']);
