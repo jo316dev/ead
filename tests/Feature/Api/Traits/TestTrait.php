@@ -15,4 +15,10 @@ trait TestTrait
 
         return $token;
     }
+
+
+    private function getAuthorization()
+    {
+        return ['Authorization' => "Bearer {$this->createTokenUser()}"];
+    }
 }
