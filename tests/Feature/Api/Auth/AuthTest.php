@@ -5,10 +5,13 @@ namespace Tests\Feature\Api\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Feature\Api\Traits\TestTrait;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
+    use TestTrait;
+
     /**
      * A basic feature test example.
      *
@@ -45,9 +48,7 @@ class AuthTest extends TestCase
 
     public function test_logout()
     {
-        $user = User::factory()->create();
-
-        $token = $user->createToken('teste')->plainTextToken;
+        $token = $this->createTokenUser();
 
         $response = $this->postJson('/logout', [], [
             'Authorization' => "Bearer {$token}"
@@ -65,9 +66,7 @@ class AuthTest extends TestCase
 
     public function test_myprofile()
     {
-        $user = User::factory()->create();
-
-        $token = $user->createToken('teste')->plainTextToken;
+        $token = $this->createTokenUser();
 
         $response = $this->getJson('/myprofile', [
             'Authorization' => "Bearer {$token}"
