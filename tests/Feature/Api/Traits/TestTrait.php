@@ -6,6 +6,10 @@ use App\Models\User;
 
 trait TestTrait
 {
+    private function createUser()
+    {
+        return User::factory()->create();
+    }
 
     private function createTokenUser()
     {
