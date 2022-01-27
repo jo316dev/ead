@@ -21,10 +21,11 @@ class ReplySupportRepository
 
     public function responseSupport($data)
     {
+
         $user = $this->getUser();
 
         return $this->entity->create([
-            'support_id' => $data['support'],
+            'support' => $data['support'],
             'description' => $data['description'],
             'user_id' => $user->id
         ]);
