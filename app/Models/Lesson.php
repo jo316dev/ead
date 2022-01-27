@@ -18,6 +18,11 @@ class Lesson extends Model
         return $this->hasMany(Support::class);
     }
 
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
+
     public function views()
     {
         return $this->hasMany(View::class)

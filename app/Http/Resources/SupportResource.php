@@ -22,6 +22,7 @@ class SupportResource extends JsonResource
             'status' => $this->statusOptions[$this->status],
             'aluno' => new UserResource($this->user),
             'lesson_id' => new LessonResource($this->lesson),
+            'replies' => LessonResource::collection($this->whenLoaded('replies')),
             'data_reposta' => Carbon::make($this->updated_at)->format('H:i:s - d/m/Y')
         ];
     }

@@ -17,7 +17,7 @@ class CreateViewsTable extends Migration
             $table->id();
             $table->uuid('user_id')->nullable(false);
             $table->uuid('lesson_id')->nullable(false);
-            $table->integer('views')->default(1);
+            $table->integer('qty')->default(1);
             $table->timestamps();
         });
     }
